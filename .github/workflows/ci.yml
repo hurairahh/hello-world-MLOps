@@ -1,6 +1,6 @@
-name: CI - Train and save the senorita model
+name: CI - Train and Save the senorita  model
 
-on: 
+on:
   push:
     branches: [ main ]
   pull_request:
@@ -8,34 +8,35 @@ on:
 
 jobs:
   matrix-pip:
-    name: train and save the senorita model
+    name: Train and Save the senorita model
     runs-on: ubuntu-latest
     strategy:
       matrix:
         python: [3.11, 3.12]
-
+    
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-     
-      - name: Setup python
+      
+      - name: Setup python 
         uses: actions/setup-python@v4
-        with: 
-            python-version: $(( matrix.python ))
-        
+        with:
+           python-version: ${{ matrix.python }}
+      
       - name: Upgrade pip
         run: python -m pip install --upgrade pip setuptools wheel
 
-      - name: Install senorita project dependencies
+      - name: Install project dependencies
         run: python -m pip install -r requirements.txt
 
-      - name: train the senorita model
+      - name: Train the senorita model
         run: |
            python train.py
            ls -la artifacts
-
-      - name: upload artifacts
-        uses: actions/upload-artifacts@v4
+      
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v4
         with:
-           name: ml-artifacts-${{ matrix.python }}-${{ github.run_id }}
-           path: artifacts
+          name: ml-artifacts-${{ matrix.python }}-${{ github.run_id }}
+          path: artifacts
+
