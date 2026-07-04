@@ -1,4 +1,4 @@
-# Hello-World MLOps
+# Hello-World MLOps 
 
 A minimal, reproducible MLOps workflow to train and serve a model.
 
